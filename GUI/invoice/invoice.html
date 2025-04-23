@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura</title>
+    <style>
+        body { font-family: Optima, sans-serif; background-color: rgb(186, 228, 226);}
+        .invoice-header { text-align: center; margin-bottom: 25px; font-weight: bold;}
+        .client-info { margin-bottom: 15px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 2px solid black; padding: 8px; text-align: left; }
+        th { background-color: #d8c4e6; }
+        .total { text-align: right; margin-top: 20px; font-weight: bold; font-size: 25px;}
+    </style>
+</head>
+<body>
+    <div class="invoice-header">
+        <h1>Factura</h1>
+        <p>Nombre Empresa<br>Dirección</p>
+    </div>
+
+    <div class="client-info">
+        <p><strong>Número de Factura:</strong> {{ numero_factura }}</p>
+        <p><strong>Fecha:</strong> {{ fecha_factura }}</p>
+        <p><strong>Cliente:</strong> {{ nombre_cliente }}</p>
+        <p><strong>Dirección:</strong> {{ direccion_cliente }}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Precio Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.producto }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>{{ item.precio_unitario }}</td>
+                <td>{{ item.precio_total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="total">
+        <strong>Total:</strong> ${{ total_factura }}
+    </div>
+</body>
+</html>
