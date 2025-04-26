@@ -1,12 +1,12 @@
 import psycopg2
+import dotenv
 
 try:
+
+    DATABASE_URL= "postgresql://neondb_owner:npg_W0xXfdKstSM5@ep-raspy-pine-a4gtnxno-pooler.us-east-1.aws.neon.tech/neondb?sslmode=require"
+
     conexion = psycopg2.connect(
-        host="localhost",
-        port="5432",
-        database="db_invoices",
-        user="postgres",
-        password="12345678"
+        DATABASE_URL
     )
     print ("tamos conectados")
 

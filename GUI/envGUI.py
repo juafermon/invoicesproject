@@ -57,33 +57,38 @@ class envGUI(QtWidgets.QMainWindow):
         IdProd= self.ui.input_idProdBill.text()
         Quantity = self.ui.input_quantityBill.text()
         Price = self.ui.input_priceBill.text()
-        NameProd = self.ui.input_nameProdBill.text()
+        #NameProd = self.ui.input_nameProdBill.text()
+        Subtotal = int(Quantity)*int(Price)
+
+        print(Subtotal, 'subtotal')
 
         arrayValues = []
         #arrayValues.append(self.ui.input_CCBill.text())
         #arrayValues.append(self.ui.input_nameCLientBill.text())
         #arrayValues.append(self.ui.input_emailBill.text())
-        arrayValues.append(self.ui.input_idProdBill.text())
-        arrayValues.append(self.ui.input_nameProdBill.text())
-        arrayValues.append(self.ui.input_priceBill.text())
-        arrayValues.append(self.ui.input_quantityBill.text())
+        arrayValues.append(IdProd)
+        arrayValues.append('nombree')
+        #arrayValues.append(querys.productname(cursor, IdProd))
+        arrayValues.append(Price)
+        arrayValues.append(Quantity)
+        arrayValues.append(Subtotal)
 
         actualrows = self.ui.tableBill.rowCount()
 
         self.ui.tableBill.insertRow(actualrows)
-        #if len(CC)>0 and len(Quantity)>0 and len(IdProd)>0 and len(Price)>0:
-            #para agregarCNXNSQL() a la tabla
+
         for i, value in enumerate (arrayValues):
             item = QtWidgets.QTableWidgetItem(value)
             self.ui.tableBill.setItem(actualrows, i, item)
 
+        
         self.operTable()
         # else:
         #     print("Error de entrada" )
 
         #agregar a tabla
-        # querys.insertquery(cursor, "2", "3")
-        # CNXNSQL.conexion.commit()
+        #querys.insertquery(cursor, "B001", "2", "200", "1000", "2025-04-30")
+        #CNXNSQL.conexion.commit()
 
 
     #Funcion para eliminar de tabla
@@ -102,23 +107,28 @@ class envGUI(QtWidgets.QMainWindow):
         #precios
         for row in range(num_rows):
             item = self.ui.tableBill.item(row, col_Prices)
-            print (self.ui.tableBill.item(row, col_Prices).text(), "ittttem")
             columnPrices.append(item.text())
     
         #cantidad
         for row in range(num_rows):
-            item = self.ui.tableBill.item(row, col_Quantity)
+            item = self.ui.tableBill.item(row, col_Prices)
             columnQuantity.append(item.text())        
 
-        #multiplicacion
+        print(columnPrices, columnQuantity, 'columnnssss')
+
+        #Subtotal
         columnTotal = []
         for i in range(len(columnPrices)):
-            total_item = int(''.join(map(str,columnPrices[i]))) * int(''.join(map(str,columnQuantity[i])))
-            columnTotal.append(total_item)        
+            totalItem = int(''.join(map(str,columnPrices[i]))) * int(''.join(map(str,columnQuantity[i])))
+            columnTotal.append(totalItem)
+
         #Suma Total
         self.ui.label_valTotRES.setText(str(sum(columnTotal)))
 
     def generarFactura_pdf(self):
+        cursor = CNXNSQL.conexion.cursor()
+
+
         # 1. Recopilacion de datos
         invoice_info = {
             #"numero_factura": self.ui.inputNumberBill.text()
