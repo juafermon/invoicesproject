@@ -145,7 +145,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>370</x>
-        <y>50</y>
+        <y>0</y>
         <width>111</width>
         <height>21</height>
        </rect>
@@ -158,7 +158,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>370</x>
-        <y>110</y>
+        <y>50</y>
         <width>111</width>
         <height>21</height>
        </rect>
@@ -209,7 +209,7 @@ p, li { white-space: pre-wrap; }
       </column>
       <column>
        <property name="text">
-        <string>Producto</string>
+        <string>NombreProd</string>
        </property>
       </column>
       <column>
@@ -220,6 +220,11 @@ p, li { white-space: pre-wrap; }
       <column>
        <property name="text">
         <string>Cantidad</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Subtotal</string>
        </property>
       </column>
      </widget>
@@ -283,7 +288,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>370</x>
-        <y>70</y>
+        <y>20</y>
         <width>291</width>
         <height>27</height>
        </rect>
@@ -293,7 +298,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>370</x>
-        <y>130</y>
+        <y>70</y>
         <width>101</width>
         <height>27</height>
        </rect>
@@ -303,7 +308,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>130</y>
+        <y>70</y>
         <width>113</width>
         <height>27</height>
        </rect>
@@ -313,7 +318,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>500</x>
-        <y>110</y>
+        <y>50</y>
         <width>66</width>
         <height>19</height>
        </rect>
@@ -346,29 +351,6 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string/>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_3">
-      <property name="geometry">
-       <rect>
-        <x>370</x>
-        <y>0</y>
-        <width>161</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Producto</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="input_nameProdBill">
-      <property name="geometry">
-       <rect>
-        <x>370</x>
-        <y>20</y>
-        <width>291</width>
-        <height>27</height>
-       </rect>
       </property>
      </widget>
     </widget>
