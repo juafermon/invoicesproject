@@ -9,7 +9,7 @@ from jinja2 import Environment, FileSystemLoader
 from xhtml2pdf import pisa
 from Comunicaciones import CNXNSQL
 from Consultas import querys
-from Funciones import operTable
+#from Funciones import operTable
 
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -50,7 +50,16 @@ class envGUI(QtWidgets.QMainWindow):
         #NameProd = self.ui.input_nameProdBill.text()
         Subtotal = str(int(Quantity)*int(Price))
 
-        #print(Subtotal, 'subtotal')
+
+        #Restriccion Campo producto - cuadro de advertencia
+        if not IdProd: 
+            msg = QtWidgets.QMessageBox()
+            msg.setIcon(QtWidgets.QMessageBox.Warning)
+            msg.setText("El campo Producto no puede estar vacío.")
+            msg.setWindowTitle("Advertencia")
+            msg.exec_()  
+            return  
+
 
         arrayValues = []
         #arrayValues.append(self.ui.input_CCBill.text())
@@ -70,7 +79,7 @@ class envGUI(QtWidgets.QMainWindow):
             item = QtWidgets.QTableWidgetItem(value)
             self.ui.tableBill.setItem(actualrows, i, item)
 
-        operTable.operTable(self)
+        self.operTable()
         # else:
         #     print("Error de entrada" )
 
@@ -78,12 +87,31 @@ class envGUI(QtWidgets.QMainWindow):
         #querys.insertquery(cursor, "B001", "2", "200", "1000", "2025-04-30")
         #CNXNSQL.conexion.commit()
 
+    def operTable (self):
+        col_SubTotal = 4  
+        arraySubTotal = []  
+
+        num_rows = self.ui.tableBill.rowCount()
+        #array subtotal
+        for row in range(num_rows):
+            item = self.ui.tableBill.item(row, col_SubTotal)
+            arraySubTotal.append(item.text())     
+
+        #SumSubtotal
+        convertedarray= []
+        for i in range(len(arraySubTotal)):
+            totalItem = int(''.join(map(str,arraySubTotal[i])))
+            convertedarray.append(totalItem)
+
+        #Suma Total
+        self.ui.label_valTotRES.setText(str(sum(convertedarray)))
+
 
     #Funcion para eliminar de tabla
     def deleteValuesTable (self):
         actualrows = self.ui.tableBill.rowCount()
         self.ui.tableBill.removeRow(actualrows-1)
-        operTable(self)
+        self.operTable()
         
         
         #reset linedits
