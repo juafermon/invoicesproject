@@ -1,5 +1,4 @@
 from Comunicaciones import CNXNSQL
-from GUI.gui import Ui_MainWindow
 
 def insertquery(cursor, product_id, qty, price, total_amount, invoice_date):
     cursor.execute(

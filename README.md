@@ -13,3 +13,5 @@ python3 libraries.py
 
 to execute
 python3 main.py
+
+pyuic5 -x gui.ui -o gui.py
