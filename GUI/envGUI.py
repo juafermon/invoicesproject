@@ -45,10 +45,10 @@ class envGUI(QtWidgets.QMainWindow):
         NameClient = self.ui.input_nameCLientBill.text()
         Email = self.ui.input_emailBill.text()
         IdProd= self.ui.input_idProdBill.text()
-        Quantity = self.ui.input_quantityBill.text()
-        Price = self.ui.input_priceBill.text()
+        Quantity_str = self.ui.input_quantityBill.text().strip()
+        Price_str = self.ui.input_priceBill.text()
         #NameProd = self.ui.input_nameProdBill.text()
-        Subtotal = str(int(Quantity)*int(Price))
+
 
 
         #Restriccion Campo producto - cuadro de advertencia
@@ -60,6 +60,33 @@ class envGUI(QtWidgets.QMainWindow):
             msg.exec_()  
             return  
 
+    #  Restriccion para Quantity ---
+        if not Quantity_str:
+            msg = QtWidgets.QMessageBox()
+            msg.setIcon(QtWidgets.QMessageBox.Warning)
+            msg.setText("El campo Cantidad no puede estar vacío.")
+            msg.setWindowTitle("Advertencia")
+            msg.exec_()  
+            return
+
+        try:
+            Quantity = int(Quantity_str)
+            if Quantity <= 0:
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText("El campo Cantidad debe ser positivo.")
+                msg.setWindowTitle("Advertencia")
+                msg.exec_()  
+                return
+        except ValueError:
+            msg = QtWidgets.QMessageBox()
+            msg.setIcon(QtWidgets.QMessageBox.Warning)
+            msg.setText("Ingrese un valor valido en cantidad")
+            msg.setWindowTitle("Advertencia")
+            msg.exec_()  
+            return
+
+        Subtotal = str(int(Quantity_str)*int(Price_str))
 
         arrayValues = []
         #arrayValues.append(self.ui.input_CCBill.text())
@@ -68,7 +95,7 @@ class envGUI(QtWidgets.QMainWindow):
         arrayValues.append(IdProd)
         arrayValues.append('nombree')
         #arrayValues.append(querys.productname(cursor, IdProd))
-        arrayValues.append(Price)
+        arrayValues.append(Price_str)
         arrayValues.append(Quantity)
         arrayValues.append(Subtotal)
         
