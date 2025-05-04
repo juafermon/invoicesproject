@@ -19,3 +19,6 @@ def update_price(price):
 
 def update_nameProd(nameProd):
     variables.nameProd = nameProd
+
+def update_inv_number(invoice_num):
+    variables.invoice_num = invoice_num

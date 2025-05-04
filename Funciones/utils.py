@@ -14,6 +14,10 @@ def getValuesBills (self):
     setters.update_idProd(self.ui.input_idProdBill.text())
     setters.update_quantity(self.ui.input_quantityBill.text().strip())
     setters.update_price(self.ui.input_priceBill.text())
+    setters.update_inv_number(self.ui.label_actualinvnum.text())
+
+    print(variables.invoice_num, "printttt en get values")
+
     #setters.update_nameProd = self.ui.input_nameProdBill.text()
     if(variables.quantity != ''):
             Subtotal = str(int(variables.quantity)*int(variables.price))
@@ -58,7 +62,7 @@ def deleteValuesTable (self):
     calculos.operTable(self)
     
     
-    #reset linedits
+    #reset de los campos
     # self.ui.input_idProdBill.setText('')
     # self.ui.input_priceBill.setText('')
     # self.ui.input_quantityBill.setText('')
@@ -69,7 +73,7 @@ def generarFactura_pdf(self):
 
         # 1. Recopilacion de datos
         invoice_info = {
-            #"numero_factura": self.ui.inputNumberBill.text()
+            "numero_factura": variables.invoice_num,
             #"fecha_factura": self.ui.inputDateBill.text(),
             "nombre_cliente": variables.nameClient,
             "direccion_cliente": variables.email,
@@ -83,17 +87,19 @@ def generarFactura_pdf(self):
             cantidad = self.ui.tableBill.item(row, 1).text() if self.ui.tableBill.item(row, 1) else ""
             precio_unitario = self.ui.tableBill.item(row, 2).text() if self.ui.tableBill.item(row, 2) else ""
             precio_total = self.ui.tableBill.item(row, 3).text() if self.ui.tableBill.item(row, 3) else ""
-            numero_factura = self.ui.label_actualinvnum
+            #numero_factura = variables.invoice_num
             invoice_items.append({
                 "producto": producto,
                 "cantidad": cantidad,
                 "precio_unitario": precio_unitario,
                 "precio_total": precio_total,
-                "numero_factura": numero_factura
             })
 
+            
             total_factura = sum(float(item["precio_total"]) for item in invoice_items if item["precio_total"])
 
+
+        print(invoice_info, "factura info")
                 # 2. Renderizar la plantilla HTML con los datos
         env = Environment(loader=FileSystemLoader('.')) # Asume que la plantilla está en el mismo directorio
         template = env.get_template('GUI/invoice/invoice.html')
