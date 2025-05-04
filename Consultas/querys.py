@@ -11,3 +11,10 @@ def productname(cursor, product_id):
     )
     result = cursor.fetchone()
     return result[0]
+
+def invoicenumber(cursor):
+    cursor.execute(
+        """SELECT id_invoice FROM public.invoices ORDER BY id_invoice DESC"""
+    )
+    result = cursor.fetchone()
+    return result[0]

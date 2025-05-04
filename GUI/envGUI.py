@@ -27,6 +27,12 @@ class envGUI(QtWidgets.QMainWindow):
         self.ui.button_backBill.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
         self.ui.button_backStock.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
 
+        #numero de factura
+        invnum = querys.invoicenumber(cursor)
+        newinvnum = invnum + 1
+
+        self.ui.label_actualinvnum.setText(str(newinvnum))
+        
         #Agregar Producto a tabla
         self.ui.button_addProdBill.clicked.connect(lambda: utils.getValuesBills(self))
         #Eliminar producto de tabla
