@@ -4,6 +4,16 @@ from xhtml2pdf import pisa
 from Funciones import restricciones, setters, calculos
 from Variables import variables
 from PyQt5 import QtWidgets
+from Consultas import querys
+from Comunicaciones import CNXNSQL
+from datetime import datetime
+
+
+def newinvoicenumber(self):
+    invnum = querys.invoicenumber(CNXNSQL.cursor)
+    newinvnum = str(invnum + 1)
+    self.ui.label_actualinvnum.setText(newinvnum)
+    
 
     #Obtener valores en Qlineedit seccion Bills y tabla
 def getValuesBills (self):
@@ -15,8 +25,6 @@ def getValuesBills (self):
     setters.update_quantity(self.ui.input_quantityBill.text().strip())
     setters.update_price(self.ui.input_priceBill.text())
     setters.update_inv_number(self.ui.label_actualinvnum.text())
-
-    print(variables.invoice_num, "printttt en get values")
 
     #setters.update_nameProd = self.ui.input_nameProdBill.text()
     if(variables.quantity != ''):
@@ -70,11 +78,11 @@ def deleteValuesTable (self):
 
 def generarFactura_pdf(self):
         #cursor = CNXNSQL.conexion.cursor()
-
+        today = datetime.now()
         # 1. Recopilacion de datos
         invoice_info = {
             "numero_factura": variables.invoice_num,
-            #"fecha_factura": self.ui.inputDateBill.text(),
+            "fecha_factura": today.strftime("%Y %m %d"),
             "nombre_cliente": variables.nameClient,
             "direccion_cliente": variables.email,
         }
@@ -98,8 +106,6 @@ def generarFactura_pdf(self):
             
             total_factura = sum(float(item["precio_total"]) for item in invoice_items if item["precio_total"])
 
-
-        print(invoice_info, "factura info")
                 # 2. Renderizar la plantilla HTML con los datos
         env = Environment(loader=FileSystemLoader('.')) # Asume que la plantilla está en el mismo directorio
         template = env.get_template('GUI/invoice/invoice.html')
@@ -110,7 +116,7 @@ def generarFactura_pdf(self):
             )
 
         # 3. Convertir el HTML a PDF usando xhtml2pdf
-        filename = "facturagenerada.pdf"
+        filename = f"{variables.invoice_num}{today.strftime("%Y %m %d").replace(" ","")}.pdf"
         with open(filename, "wb") as pdf_file:
             pisa_status = pisa.CreatePDF(html, dest=pdf_file)
             if pisa_status.err:
