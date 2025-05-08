@@ -1,4 +1,5 @@
 from Variables import variables
+
 def update_cc(cc):
     variables.cc = cc 
 
@@ -22,3 +23,6 @@ def update_nameProd(nameProd):
 
 def update_inv_number(invoice_num):
     variables.invoice_num = invoice_num
+
+def update_inv_date(invoice_date):
+    variables.invoice_date = invoice_date
