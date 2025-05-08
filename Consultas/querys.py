@@ -1,8 +1,8 @@
 from Comunicaciones import CNXNSQL
 
-def insertquery(cursor, product_id, qty, price, total_amount, invoice_date):
+def insertInfoInvoiceTable(cursor, product_id, qty, price, total_amount, invoice_date, invoice_number):
     cursor.execute(
-        "INSERT INTO invoices (product_id, qty, price, total_amount, invoice_date) VALUES (%s, %s, %s, %s, %s)", (product_id, qty, price, total_amount, invoice_date)
+        "INSERT INTO invoices (product_id, qty, price, total_amount, invoice_date, invoice_number) VALUES (%s, %s, %s, %s, %s, %s)", (product_id, qty, price, total_amount, invoice_date, invoice_number)
         )
     
 def productname(cursor, product_id):

@@ -77,12 +77,13 @@ def deleteValuesTable (self):
 
 
 def generarFactura_pdf(self):
-        #cursor = CNXNSQL.conexion.cursor()
-        today = datetime.now()
+        cursor = CNXNSQL.conexion.cursor()
+        setters.update_inv_date(datetime.now().date())
+        #today = datetime.now()
         # 1. Recopilacion de datos
         invoice_info = {
             "numero_factura": variables.invoice_num,
-            "fecha_factura": today.strftime("%Y %m %d"),
+            "fecha_factura": variables.invoice_date.strftime("%Y %m %d"),
             "nombre_cliente": variables.nameClient,
             "direccion_cliente": variables.email,
         }
@@ -91,12 +92,13 @@ def generarFactura_pdf(self):
 
         num_rows = self.ui.tableBill.rowCount()
         for row in range(num_rows):
-            producto = self.ui.tableBill.item(row, 0).text() if self.ui.tableBill.item(row, 0) else ""
-            cantidad = self.ui.tableBill.item(row, 1).text() if self.ui.tableBill.item(row, 1) else ""
-            precio_unitario = self.ui.tableBill.item(row, 2).text() if self.ui.tableBill.item(row, 2) else ""
-            precio_total = self.ui.tableBill.item(row, 3).text() if self.ui.tableBill.item(row, 3) else ""
-            #numero_factura = variables.invoice_num
+            id_producto = self.ui.tableBill.item(row, 0).text() if self.ui.tableBill.item(row, 0) else ""
+            producto = self.ui.tableBill.item(row, 1).text() if self.ui.tableBill.item(row, 1) else ""
+            cantidad = self.ui.tableBill.item(row, 2).text() if self.ui.tableBill.item(row, 2) else ""
+            precio_unitario = self.ui.tableBill.item(row, 3).text() if self.ui.tableBill.item(row, 3) else ""
+            precio_total = self.ui.tableBill.item(row, 4).text() if self.ui.tableBill.item(row, 4) else ""
             invoice_items.append({
+                "id_producto": id_producto,
                 "producto": producto,
                 "cantidad": cantidad,
                 "precio_unitario": precio_unitario,
@@ -105,6 +107,9 @@ def generarFactura_pdf(self):
 
             
             total_factura = sum(float(item["precio_total"]) for item in invoice_items if item["precio_total"])
+            
+            querys.insertInfoInvoiceTable(cursor,id_producto, cantidad,precio_total,total_factura,variables.invoice_date,variables.invoice_num)
+            CNXNSQL.conexion.commit()
 
                 # 2. Renderizar la plantilla HTML con los datos
         env = Environment(loader=FileSystemLoader('.')) # Asume que la plantilla está en el mismo directorio
@@ -116,7 +121,7 @@ def generarFactura_pdf(self):
             )
 
         # 3. Convertir el HTML a PDF usando xhtml2pdf
-        filename = f"{variables.invoice_num}{today.strftime("%Y %m %d").replace(" ","")}.pdf"
+        filename = f"{variables.invoice_num}{variables.invoice_date.strftime("%Y %m %d").replace(" ","")}.pdf"
         with open(filename, "wb") as pdf_file:
             pisa_status = pisa.CreatePDF(html, dest=pdf_file)
             if pisa_status.err:

@@ -6,3 +6,4 @@ quantity = '' # Cantidad
 price = '' # Precio
 nameProd = '' #Nombre de producto
 invoice_num = '' #Numero de factura
+invoice_date = '' #Fecha de factura
