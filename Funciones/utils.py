@@ -120,3 +120,4 @@ def generarFactura_pdf(self):
     #Para empezar a crear una nueva factura
     self.ui.tableBill.setRowCount(0)
     newinvoicenumber(self)
+    self.ui.label_valTotRES.setText("")
