@@ -1,15 +1,40 @@
 from PyQt5 import QtWidgets
+from Variables import variables
+from Funciones import setters
+from Comunicaciones import CNXNSQL
+from Consultas import querys
 
+#Restricción campo id producto
+def campoIdProducto(self, idProd):
+    setters.update_nameProd(querys.getProductName(CNXNSQL.cursor, idProd))
+    if not idProd :
+        campoProducto(self, idProd)
+    
+    elif variables.nameProd == '' :        
+        msg = QtWidgets.QMessageBox()
+        msg.setIcon(QtWidgets.QMessageBox.Warning)
+        msg.setText("El producto no existe, intente de nuevo")  
+        msg.setWindowTitle("Advertencia")
+        msg.exec_()
+    elif not variables.quantity:
+        campoQuantity(self, variables.quantity)     
+    elif  not variables.price:
+        campoPrecio(self, variables.price)     
+    else:  
+        return variables.nameProd
+    
+    
 #Restriccion Campo producto - cuadro de advertencia
 def campoProducto (self, IdProd):
+            
     
         if not IdProd: 
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Warning)
             msg.setText("El campo Producto no puede estar vacío.")
             msg.setWindowTitle("Advertencia")
-            msg.exec_()  
-            return
+            msg.exec_()
+        
 
 #  Restriccion para Quantity - cuadro de advertencia
 def campoQuantity (self,Quantity_str):

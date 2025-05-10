@@ -25,9 +25,10 @@ def getValuesBills (self):
     setters.update_quantity(self.ui.input_quantityBill.text().strip())
     setters.update_price(self.ui.input_priceBill.text())
     setters.update_inv_number(self.ui.label_actualinvnum.text())
+    setters.update_nameProd(restricciones.campoIdProducto(self, variables.idProd))
 
     #setters.update_nameProd = self.ui.input_nameProdBill.text()
-    if(variables.quantity != ''):
+    if(variables.quantity != '' and variables.price != ''):
             Subtotal = str(int(variables.quantity)*int(variables.price))
 
             arrayValues = []
@@ -35,7 +36,7 @@ def getValuesBills (self):
             #arrayValues.append(self.ui.input_nameCLientBill.text())
             #arrayValues.append(self.ui.input_emailBill.text())
             arrayValues.append(variables.idProd)
-            arrayValues.append('nombree')
+            arrayValues.append(variables.nameProd)
             #arrayValues.append(querys.productname(cursor, IdProd))
             arrayValues.append(variables.price)
             arrayValues.append(variables.quantity)
@@ -50,9 +51,6 @@ def getValuesBills (self):
             
             #
             calculos.operTable(self)
-
-    restricciones.campoProducto(self, variables.idProd)
-    restricciones.campoQuantity(self, variables.quantity)
 
 #Funcion para eliminar items de tabla
 def deleteValuesTable (self):
