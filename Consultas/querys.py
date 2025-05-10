@@ -14,7 +14,7 @@ def productname(cursor, product_id):
 
 def invoicenumber(cursor):
     cursor.execute(
-        """SELECT id_invoice FROM public.invoices ORDER BY id_invoice DESC"""
+        """SELECT MAX (invoice_number) FROM public.invoices"""
     )
     result = cursor.fetchone()
     return result[0]
