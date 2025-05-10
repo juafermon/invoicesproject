@@ -25,10 +25,10 @@ def getValuesBills (self):
     setters.update_quantity(self.ui.input_quantityBill.text().strip())
     setters.update_price(self.ui.input_priceBill.text())
     setters.update_inv_number(self.ui.label_actualinvnum.text())
-    setters.update_nameProd(restricciones.campoIdProducto(self, variables.idProd))
+    restricciones.campoIdProducto(self, variables.idProd)
 
     #setters.update_nameProd = self.ui.input_nameProdBill.text()
-    if(variables.quantity != '' and variables.price != ''):
+    if(variables.quantity != '' and variables.price != '' and variables.nameProd != ''):
             Subtotal = str(int(variables.quantity)*int(variables.price))
 
             arrayValues = []
