@@ -23,9 +23,11 @@ class envGUI(QtWidgets.QMainWindow):
         cursor = CNXNSQL.conexion.cursor()
         ##navegacion con botones
         self.ui.button_newBill.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
-        self.ui.button_updateStock.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(2))
+        self.ui.button_searchItems.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(2))
+        self.ui.button_updateStock.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(3))
         self.ui.button_backBill.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
         self.ui.button_backStock.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
+        self.ui.button_backSearch.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
 
         #numero de factura
         utils.newinvoicenumber(self)

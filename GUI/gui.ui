@@ -24,14 +24,14 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
-    <widget class="QWidget" name="page">
+    <widget class="QWidget" name="main">
      <widget class="QLabel" name="label_title">
       <property name="geometry">
        <rect>
-        <x>200</x>
-        <y>170</y>
+        <x>190</x>
+        <y>30</y>
         <width>351</width>
         <height>51</height>
        </rect>
@@ -47,8 +47,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="background">
       <property name="geometry">
        <rect>
-        <x>-5</x>
-        <y>-12</y>
+        <x>-10</x>
+        <y>-30</y>
         <width>741</width>
         <height>561</height>
        </rect>
@@ -60,10 +60,10 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="button_newBill">
       <property name="geometry">
        <rect>
-        <x>140</x>
-        <y>250</y>
+        <x>211</x>
+        <y>142</y>
         <width>191</width>
-        <height>51</height>
+        <height>27</height>
        </rect>
       </property>
       <property name="text">
@@ -73,20 +73,34 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="button_updateStock">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>250</y>
-        <width>261</width>
-        <height>51</height>
+        <x>211</x>
+        <y>196</y>
+        <width>191</width>
+        <height>27</height>
        </rect>
       </property>
       <property name="text">
        <string>Actualizar Inventario</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="button_searchItems">
+      <property name="geometry">
+       <rect>
+        <x>211</x>
+        <y>250</y>
+        <width>191</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Buscar Productos</string>
+      </property>
+     </widget>
      <zorder>background</zorder>
      <zorder>label_title</zorder>
      <zorder>button_updateStock</zorder>
      <zorder>button_newBill</zorder>
+     <zorder>button_searchItems</zorder>
     </widget>
     <widget class="QWidget" name="bills">
      <widget class="QLabel" name="background2">
@@ -353,7 +367,7 @@ p, li { white-space: pre-wrap; }
        <string/>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>230</x>
@@ -425,7 +439,7 @@ p, li { white-space: pre-wrap; }
       </layout>
      </widget>
     </widget>
-    <widget class="QWidget" name="stock">
+    <widget class="QWidget" name="search">
      <widget class="QLabel" name="background3">
       <property name="geometry">
        <rect>
@@ -442,9 +456,9 @@ p, li { white-space: pre-wrap; }
      <widget class="QPushButton" name="button_searchItemStock">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>320</x>
         <y>90</y>
-        <width>151</width>
+        <width>71</width>
         <height>41</height>
        </rect>
       </property>
@@ -465,135 +479,23 @@ p, li { white-space: pre-wrap; }
        <string>Ingrese codigo de producto</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_newProduct">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>230</y>
-        <width>171</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Crear Nuevo Producto</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_updateStock">
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>230</y>
-        <width>101</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Actualizar</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_idAddProdStock">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>280</y>
-        <width>51</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Id prod</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_nameNewProdStock">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>320</y>
-        <width>61</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Nombre</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_priceNewProdStock">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>360</y>
-        <width>66</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Precio</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_quantityUpdateStock">
-      <property name="geometry">
-       <rect>
-        <x>325</x>
-        <y>280</y>
-        <width>141</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>cantidad a agregar</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_codeAddStock">
-      <property name="geometry">
-       <rect>
-        <x>330</x>
-        <y>320</y>
-        <width>121</width>
-        <height>19</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Id prod</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="button_createItemStock">
-      <property name="geometry">
-       <rect>
-        <x>60</x>
-        <y>420</y>
-        <width>211</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Crear Producto</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="button_updateStock_2">
-      <property name="geometry">
-       <rect>
-        <x>470</x>
-        <y>420</y>
-        <width>231</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Actualizar inventario</string>
-      </property>
-     </widget>
      <widget class="QTableWidget" name="table_searchItemStock">
       <property name="geometry">
        <rect>
         <x>20</x>
-        <y>130</y>
-        <width>511</width>
-        <height>81</height>
+        <y>150</y>
+        <width>691</width>
+        <height>321</height>
        </rect>
       </property>
       <column>
        <property name="text">
-        <string>Producto</string>
+        <string>ID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nombre de producto</string>
        </property>
       </column>
       <column>
@@ -625,60 +527,103 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>20</x>
         <y>90</y>
-        <width>181</width>
+        <width>281</width>
         <height>41</height>
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="input_idNewProdStock">
+    </widget>
+    <widget class="QWidget" name="add_update">
+     <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>270</y>
-        <width>201</width>
-        <height>27</height>
+        <x>-10</x>
+        <y>0</y>
+        <width>761</width>
+        <height>551</height>
        </rect>
+      </property>
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/back/images/v960-ning-31.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="input_nameProdStock">
+     <widget class="QPushButton" name="button_backSearch">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>310</y>
-        <width>201</width>
+        <x>40</x>
+        <y>30</y>
+        <width>88</width>
         <height>27</height>
        </rect>
+      </property>
+      <property name="text">
+       <string>Cancelar</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="input_priceNewProdStock">
+     <widget class="QPushButton" name="button_addNewItem">
       <property name="geometry">
        <rect>
-        <x>80</x>
-        <y>350</y>
-        <width>201</width>
+        <x>40</x>
+        <y>250</y>
+        <width>88</width>
         <height>27</height>
        </rect>
+      </property>
+      <property name="text">
+       <string>Agregar</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="input_quantityAddProdStock">
+     <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
-        <x>460</x>
-        <y>270</y>
-        <width>251</width>
-        <height>27</height>
+        <x>40</x>
+        <y>100</y>
+        <width>271</width>
+        <height>131</height>
        </rect>
       </property>
-     </widget>
-     <widget class="QLineEdit" name="input_idAddProdStock">
-      <property name="geometry">
-       <rect>
-        <x>460</x>
-        <y>310</y>
-        <width>251</width>
-        <height>27</height>
-       </rect>
-      </property>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLineEdit" name="input_idprodNewItem"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>ID PRODUCTO</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLineEdit" name="input_quantityNewItem"/>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_4">
+         <property name="text">
+          <string>CANTIDAD</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLineEdit" name="input_priceNewItem"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>PRECIO</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLineEdit" name="input_nameNewItem"/>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>NOMBRE</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
