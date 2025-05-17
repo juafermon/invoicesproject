@@ -126,10 +126,12 @@ def generarFactura_pdf(self):
 def buscarProductoEnInventarioPorId(self):
     
     cursor = CNXNSQL.conexion.cursor()
+
+    cleanStockTable(self)
+    
     setters.update_search_id(self.ui.input_searchStock.text())
     result = querys.getProductByID(cursor, variables.searchId)
-
-    print (result)
+    printStockTable.stockTable(self, result)
 
 def getListProduct(self):
     cursor = CNXNSQL.conexion.cursor()
@@ -137,3 +139,5 @@ def getListProduct(self):
     
     printStockTable.stockTable(self, results)
 
+def cleanStockTable(self):
+    self.ui.table_searchItemStock.setRowCount(0)
