@@ -31,6 +31,10 @@ class envGUI(QtWidgets.QMainWindow):
 
         #numero de factura
         utils.newinvoicenumber(self)
+
+        
+        #print(querys.getAllProducts(cursor)[0][0])
+        #print(len(querys.getAllProducts(cursor)), "length prfrvetbv")
         
         #Agregar Producto a tabla
         self.ui.button_addProdBill.clicked.connect(lambda: utils.getValuesBills(self))
@@ -40,6 +44,8 @@ class envGUI(QtWidgets.QMainWindow):
         self.ui.button_createBill.clicked.connect(lambda: utils.generarFactura_pdf(self))
         #Buscar producto en pantalla de inventario
         self.ui.button_searchItemStock.clicked.connect(lambda: utils.buscarProductoEnInventarioPorId(self))
+        #Buscar productos
+        self.ui.button_searchItems.clicked.connect(lambda: utils.getListProduct(self)) 
         
 #ejecucion GUI
 if __name__ == '__main__':

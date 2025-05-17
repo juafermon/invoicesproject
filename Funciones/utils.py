@@ -7,6 +7,7 @@ from PyQt5 import QtWidgets
 from Consultas import querys
 from Comunicaciones import CNXNSQL
 from datetime import datetime
+from Funciones import printStockTable
 
 
 def newinvoicenumber(self):
@@ -129,3 +130,10 @@ def buscarProductoEnInventarioPorId(self):
     result = querys.getProductByID(cursor, variables.searchId)
 
     print (result)
+
+def getListProduct(self):
+    cursor = CNXNSQL.conexion.cursor()
+    results = querys.getAllProducts(cursor)
+    
+    printStockTable.stockTable(self, results)
+
