@@ -46,6 +46,8 @@ class envGUI(QtWidgets.QMainWindow):
         self.ui.button_searchItemStock.clicked.connect(lambda: utils.buscarProductoEnInventarioPorId(self))
         #Buscar productos
         self.ui.button_searchItems.clicked.connect(lambda: utils.getListProduct(self)) 
+        #Limpieza productos
+        self.ui.button_cleanStockTable.clicked.connect(lambda: utils.getListProduct(self))
         
 #ejecucion GUI
 if __name__ == '__main__':

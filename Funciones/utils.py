@@ -135,6 +135,7 @@ def buscarProductoEnInventarioPorId(self):
 
 def getListProduct(self):
     cursor = CNXNSQL.conexion.cursor()
+    cleanStockTable(self)
     results = querys.getAllProducts(cursor)
     
     printStockTable.stockTable(self, results)
