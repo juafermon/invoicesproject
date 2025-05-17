@@ -34,3 +34,9 @@ def getProductByID(cursor, product_id):
     )
     result = cursor.fetchall()
     return result if result is not None else ''
+
+#Consulta para insertar la informacion en la tabla products
+def insertInfoProductTable(cursor, product_id, product_name, price, stock):
+    cursor.execute(
+        "INSERT INTO products (product_id, product_name, price, stock) VALUES (%s, %s, %s, %s)", (product_id, product_name, price, stock)
+    )
