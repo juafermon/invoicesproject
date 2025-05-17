@@ -142,3 +142,10 @@ def getListProduct(self):
 
 def cleanStockTable(self):
     self.ui.table_searchItemStock.setRowCount(0)
+
+
+def cleanFieldsInsertItem(self):
+    self.ui.input_idprodNewItem.setText('')
+    self.ui.input_nameNewItem.setText('')
+    self.ui.input_priceNewItem.setText('')
+    self.ui.input_quantityNewItem.setText('')

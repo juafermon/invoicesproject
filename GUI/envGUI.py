@@ -7,7 +7,7 @@ from datetime import datetime
 from .gui import Ui_MainWindow
 from Comunicaciones import CNXNSQL
 from Consultas import querys
-from Funciones import utils, restricciones,calculos
+from Funciones import utils, restricciones,calculos, insertProducts
 from Variables import variables
 
 
@@ -48,6 +48,8 @@ class envGUI(QtWidgets.QMainWindow):
         self.ui.button_searchItems.clicked.connect(lambda: utils.getListProduct(self)) 
         #Limpieza productos
         self.ui.button_cleanStockTable.clicked.connect(lambda: utils.getListProduct(self))
+
+        self.ui.button_addNewItem.clicked.connect(lambda: insertProducts.putProductsInProductsTable(self))
         
 #ejecucion GUI
 if __name__ == '__main__':
