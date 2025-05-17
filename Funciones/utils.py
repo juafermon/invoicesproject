@@ -7,6 +7,7 @@ from PyQt5 import QtWidgets
 from Consultas import querys
 from Comunicaciones import CNXNSQL
 from datetime import datetime
+from Funciones import printStockTable
 
 
 def newinvoicenumber(self):
@@ -121,3 +122,10 @@ def generarFactura_pdf(self):
     self.ui.tableBill.setRowCount(0)
     newinvoicenumber(self)
     self.ui.label_valTotRES.setText("")
+
+
+def getListProduct(self):
+    cursor = CNXNSQL.conexion.cursor()
+    results = querys.getAllProducts(cursor)
+    
+    printStockTable.stockTable(self, results)

@@ -20,3 +20,10 @@ def invoicenumber(cursor):
     )
     result = cursor.fetchone()
     return result[0]
+
+def getAllProducts(cursor):
+    cursor.execute(
+        """SELECT   product_id, product_name, price, stock FROM public.products"""
+    )
+    result = cursor.fetchall()
+    return result
