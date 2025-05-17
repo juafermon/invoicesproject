@@ -42,6 +42,8 @@ class envGUI(QtWidgets.QMainWindow):
         self.ui.button_deleteProdBill.clicked.connect(lambda: utils.deleteValuesTable(self))
         #Crear factura
         self.ui.button_createBill.clicked.connect(lambda: utils.generarFactura_pdf(self))
+        #Buscar producto en pantalla de inventario
+        self.ui.button_searchItemStock.clicked.connect(lambda: utils.buscarProductoEnInventarioPorId(self))
         #Buscar productos
         self.ui.button_searchItems.clicked.connect(lambda: utils.getListProduct(self)) 
         
