@@ -20,3 +20,10 @@ def invoicenumber(cursor):
     )
     result = cursor.fetchone()
     return result[0]
+#Consulta para obtener los datos del producto buscado en la pantalla inventario
+def getProductByID(cursor, product_id):
+    cursor.execute(
+        """SELECT product_id, product_name, price, stock FROM public.products WHERE product_id=%s;""",(product_id,)
+    )
+    result = cursor.fetchall()
+    return result if result is not None else ''

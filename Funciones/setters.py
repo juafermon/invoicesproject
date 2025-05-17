@@ -26,3 +26,6 @@ def update_inv_number(invoice_num):
 
 def update_inv_date(invoice_date):
     variables.invoice_date = invoice_date
+
+def update_search_id(searchId):
+    variables.searchId = searchId

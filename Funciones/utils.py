@@ -121,3 +121,11 @@ def generarFactura_pdf(self):
     self.ui.tableBill.setRowCount(0)
     newinvoicenumber(self)
     self.ui.label_valTotRES.setText("")
+
+def buscarProductoEnInventarioPorId(self):
+    
+    cursor = CNXNSQL.conexion.cursor()
+    setters.update_search_id(self.ui.input_searchStock.text())
+    result = querys.getProductByID(cursor, variables.searchId)
+
+    print (result)
