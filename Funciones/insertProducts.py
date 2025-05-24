@@ -12,9 +12,16 @@ def putProductsInProductsTable (self):
     setters.update_price(self.ui.input_priceNewItem.text())
     setters.update_quantity(self.ui.input_quantityNewItem.text())
 
-    querys.insertInfoProductTable(cursor, variables.idProd, variables.nameProd, variables.price, variables.quantity)
-    CNXNSQL.conexion.commit()
+    flagExitsProduct = querys.getProductByID(cursor, variables.idProd)
 
-    utils.cleanFieldsInsertItem(self)
+    if flagExitsProduct == '' :
+
+        querys.insertInfoProductTable(cursor, variables.idProd, variables.nameProd, variables.price, variables.quantity)
+        CNXNSQL.conexion.commit()
+        utils.cleanFieldsInsertItem(self)
     
-    
+    else:
+        setters.update_nameProd(flagExitsProduct[0][1])
+        querys.updateInfoProductTable(cursor, variables.quantity, variables.price, variables.idProd, variables.nameProd)
+        CNXNSQL.conexion.commit()
+        utils.cleanFieldsInsertItem(self)        

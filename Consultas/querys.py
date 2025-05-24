@@ -40,3 +40,9 @@ def insertInfoProductTable(cursor, product_id, product_name, price, stock):
     cursor.execute(
         "INSERT INTO products (product_id, product_name, price, stock) VALUES (%s, %s, %s, %s)", (product_id, product_name, price, stock)
     )
+
+#Consulta para modificar la informacion en la tabla products
+def updateInfoProductTable(cursor,stock, price, product_id, product_name):
+    cursor.execute(
+        "UPDATE products SET stock = %s, price = %s, product_name = %s WHERE product_id = %s", (stock, price, product_name, product_id)
+    )
