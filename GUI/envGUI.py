@@ -1,14 +1,13 @@
 from time import sleep
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets
 import sys
 import os
-from datetime import datetime
+from Funciones import insertProducts
 ##INTERFAZ GRAFICA
 from .gui import Ui_MainWindow
-from Comunicaciones import CNXNSQL
-from Consultas import querys
-from Funciones import utils, restricciones,calculos, insertProducts
-from Variables import variables
+from src.core import utils
+from src.database import CNXNSQL
+from src.models import SearchProduct
 
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -42,12 +41,12 @@ class envGUI(QtWidgets.QMainWindow):
         self.ui.button_deleteProdBill.clicked.connect(lambda: utils.deleteValuesTable(self))
         #Crear factura
         self.ui.button_createBill.clicked.connect(lambda: utils.generarFactura_pdf(self))
-        #Buscar producto en pantalla de inventario
-        self.ui.button_searchItemStock.clicked.connect(lambda: utils.buscarProductoEnInventarioPorId(self))
-        #Buscar productos
-        self.ui.button_searchItems.clicked.connect(lambda: utils.getListProduct(self)) 
-        #Limpieza productos
-        self.ui.button_cleanStockTable.clicked.connect(lambda: utils.getListProduct(self))
+        #Search product by Id
+        self.ui.button_searchItemStock.clicked.connect(lambda: SearchProduct.searchProductById(self))
+        #Get products to create list in Search Product function
+        self.ui.button_searchItems.clicked.connect(lambda: SearchProduct.getListProduct(self)) 
+        #Clean products table
+        self.ui.button_cleanStockTable.clicked.connect(lambda: SearchProduct.getListProduct(self))
 
         self.ui.button_addNewItem.clicked.connect(lambda: insertProducts.putProductsInProductsTable(self))
         
