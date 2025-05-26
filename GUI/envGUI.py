@@ -7,7 +7,7 @@ from Funciones import insertProducts
 from .gui import Ui_MainWindow
 from src.core import utils
 from src.database import CNXNSQL
-from src.models import SearchProduct
+from src.models import SearchProduct,UpdateStock
 
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -47,9 +47,9 @@ class envGUI(QtWidgets.QMainWindow):
         self.ui.button_searchItems.clicked.connect(lambda: SearchProduct.getListProduct(self)) 
         #Clean products table
         self.ui.button_cleanStockTable.clicked.connect(lambda: SearchProduct.getListProduct(self))
-
-        self.ui.button_addNewItem.clicked.connect(lambda: insertProducts.putProductsInProductsTable(self))
-        
+        #Insert products in products table
+        self.ui.button_addNewItem.clicked.connect(lambda: UpdateStock.insertProductsInProductsTable(self))
+                
 #ejecucion GUI
 if __name__ == '__main__':
 
