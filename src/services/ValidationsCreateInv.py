@@ -1,14 +1,16 @@
 from PyQt5 import QtWidgets
-from Variables import variables
-from Funciones import setters
-from Comunicaciones import CNXNSQL
-from Consultas import querys
+from src.core import setters, variables
+from src.database import CNXNSQL, querys
 
-#Restricción campo id producto
-def campoIdProducto(self, idProd):
-    setters.update_nameProd(querys.getProductName(CNXNSQL.cursor, idProd))
+#Validations of fields to get products on Bill 
+def idProductCamp(self, idProd):
+    results = querys.getProductByID(CNXNSQL.cursor, idProd)
+
+    setters.update_nameProd(results[0][1])
+    setters.update_price(int(results[0][2]))
+
     if not idProd :
-        campoProducto(self, idProd)
+        productCamp(self, idProd)
     
     elif variables.nameProd == '' :        
         msg = QtWidgets.QMessageBox()
@@ -17,17 +19,16 @@ def campoIdProducto(self, idProd):
         msg.setWindowTitle("Advertencia")
         msg.exec_()
     elif not variables.quantity:
-        campoQuantity(self, variables.quantity)     
+        campQuantity(self, variables.quantity)     
     elif  not variables.price:
-        campoPrecio(self, variables.price)     
+        campPrice(self, variables.price)     
     else:  
         return variables.nameProd
     
     
-#Restriccion Campo producto - cuadro de advertencia
-def campoProducto (self, IdProd):
+#Field validation idproduct - pop up box 
+def productCamp (self, IdProd):
             
-    
         if not IdProd: 
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Warning)
@@ -35,9 +36,8 @@ def campoProducto (self, IdProd):
             msg.setWindowTitle("Advertencia")
             msg.exec_()
         
-
-#  Restriccion para Quantity - cuadro de advertencia
-def campoQuantity (self,Quantity_str):
+#  Field validation for quantity - pop up box 
+def campQuantity (self,Quantity_str):
 
         if not Quantity_str:
             msg = QtWidgets.QMessageBox()
@@ -64,8 +64,10 @@ def campoQuantity (self,Quantity_str):
             msg.exec_()  
             return
         
-def campoPrecio(self, Price_str):
-        # --- Restricciones para Price ---
+
+# --- Field validation for Price ---
+def campPrice(self, Price_str):
+
         if not Price_str:
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Warning)
