@@ -4,7 +4,7 @@ from datetime import datetime
 from src.services import FeaturesCreateInvoice, ValidationsCreateInv
 
 #Function to get and update the values in the Qlineedit in the bill section
-def getValuesBills (self):
+def getItemsAddtoTable (self):
     setters.update_cc(self.ui.input_CCBill.text())
     setters.update_nameClient(self.ui.input_nameCLientBill.text())
     setters.update_email(self.ui.input_emailBill.text())
@@ -36,7 +36,7 @@ def getValuesBills (self):
             self.ui.tableBill.setItem(actualrows, i, item)
         FeaturesCreateInvoice.operTable(self)
 
-def deleteValuesTable (self):
+def deleteProducts (self):
     actualrows = self.ui.tableBill.rowCount()
     self.ui.tableBill.removeRow(actualrows-1)
     FeaturesCreateInvoice.operTable(self)
