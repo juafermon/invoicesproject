@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from src.core import setters, variables
+from src.core import setters, variables, utils
 from datetime import datetime
 from src.services import FeaturesCreateInvoice, ValidationsCreateInv
 
@@ -15,26 +15,8 @@ def getItemsAddtoTable (self):
     self.ui.input_priceBill.setText(str(variables.price))
 
     if(variables.quantity != '' and variables.price != '' and variables.nameProd != ''):
-        Subtotal = str(int(variables.quantity)*int((variables.price)))
-
-        arrayValues = []
-        #arrayValues.append(self.ui.input_CCBill.text())
-        #arrayValues.append(self.ui.input_nameCLientBill.text())
-        #arrayValues.append(self.ui.input_emailBill.text())
-        arrayValues.append(variables.idProd)
-        arrayValues.append(variables.nameProd)
-        #arrayValues.append(querys.productname(cursor, IdProd))
-        arrayValues.append(str(variables.price))
-        arrayValues.append(variables.quantity)
-        arrayValues.append(Subtotal)
-        
-        actualrows = self.ui.tableBill.rowCount()
-        self.ui.tableBill.insertRow(actualrows)
-        # FOR loop to add values o the array arrayValues to the bill table 
-        for i, value in enumerate (arrayValues):            
-            item = QtWidgets.QTableWidgetItem(value)
-            self.ui.tableBill.setItem(actualrows, i, item)
-        FeaturesCreateInvoice.operTable(self)
+        #Add Items to invoice table
+        utils.billTable(self)
 
 def deleteProducts (self):
     actualrows = self.ui.tableBill.rowCount()
@@ -44,3 +26,5 @@ def deleteProducts (self):
 def createPDF(self):
     setters.update_inv_date(datetime.now().date())
     FeaturesCreateInvoice.createBill(self)
+    FeaturesCreateInvoice.updateStockAfterCreateBill(self)
+    utils.newBill(self)
