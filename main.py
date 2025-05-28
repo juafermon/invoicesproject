@@ -1,4 +1,4 @@
-from GUI.envGUI import envGUI
+from src.GUI.envGUI import envGUI
 import sys
 from PyQt5 import QtWidgets
 

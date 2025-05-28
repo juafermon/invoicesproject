@@ -299,4 +299,4 @@ class Ui_MainWindow(object):
         self.label_4.setText(_translate("MainWindow", "CANTIDAD"))
         self.label_5.setText(_translate("MainWindow", "PRECIO"))
         self.label_6.setText(_translate("MainWindow", "NOMBRE"))
-from GUI import Images
+from src.GUI import Images

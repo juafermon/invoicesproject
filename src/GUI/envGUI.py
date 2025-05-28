@@ -2,12 +2,12 @@ from time import sleep
 from PyQt5 import QtWidgets
 import sys
 import os
-from Funciones import insertProducts
+#from Funciones import insertProducts
 ##INTERFAZ GRAFICA
 from .gui import Ui_MainWindow
 from src.core import utils
 from src.database import CNXNSQL
-from src.models import SearchProduct,UpdateStock
+from src.models import SearchProduct,UpdateStock, CreateInvoice
 
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -32,15 +32,12 @@ class envGUI(QtWidgets.QMainWindow):
         utils.newinvoicenumber(self)
 
         
-        #print(querys.getAllProducts(cursor)[0][0])
-        #print(len(querys.getAllProducts(cursor)), "length prfrvetbv")
-        
         #Agregar Producto a tabla
-        self.ui.button_addProdBill.clicked.connect(lambda: utils.getValuesBills(self))
+        self.ui.button_addProdBill.clicked.connect(lambda: CreateInvoice.getValuesBills(self))
         #Eliminar producto de tabla
-        self.ui.button_deleteProdBill.clicked.connect(lambda: utils.deleteValuesTable(self))
+        self.ui.button_deleteProdBill.clicked.connect(lambda: CreateInvoice.deleteValuesTable(self))
         #Crear factura
-        self.ui.button_createBill.clicked.connect(lambda: utils.generarFactura_pdf(self))
+        self.ui.button_createBill.clicked.connect(lambda: CreateInvoice.createPDF(self))
         #Search product by Id
         self.ui.button_searchItemStock.clicked.connect(lambda: SearchProduct.searchProductById(self))
         #Get products to create list in Search Product function
@@ -50,6 +47,8 @@ class envGUI(QtWidgets.QMainWindow):
         #Insert products in products table
         self.ui.button_addNewItem.clicked.connect(lambda: UpdateStock.insertProductsInProductsTable(self))
                 
+        
+
 #ejecucion GUI
 if __name__ == '__main__':
 
