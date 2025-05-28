@@ -1,9 +1,3 @@
-# from jinja2 import Environment, FileSystemLoader
-# from xhtml2pdf import pisa
-# from Funciones import restricciones, calculos
-# from src.core import variables, setters
-# from PyQt5 import QtWidgets
-# from datetime import datetime
 from src.database import CNXNSQL, querys
 from PyQt5.QtWidgets import QTableWidgetItem
 
