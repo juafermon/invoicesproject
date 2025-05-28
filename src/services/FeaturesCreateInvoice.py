@@ -1,11 +1,13 @@
 from jinja2 import Environment, FileSystemLoader
 from xhtml2pdf import pisa
-from src.database import CNXNSQL, querys
+from src.database import querys
+from src.database.CNXNSQL import conexion
 from src.core import variables, utils
 import os
 
+cursor = conexion.cursor()
 
-# Metodo para calcular en la factura
+# Function to calculate total bill 
 def operTable (self):
     col_SubTotal = 4  
     arraySubTotal = []  
@@ -26,7 +28,7 @@ def operTable (self):
     self.ui.label_valTotRES.setText(str(sum(convertedarray)))
 
 def createBill(self):
-    cursor = CNXNSQL.conexion.cursor()
+    #cursor = CNXNSQL.conexion.cursor()
     invoice_info = {
         "numero_factura": variables.invoice_num,
         "fecha_factura": variables.invoice_date.strftime("%Y %m %d"),
@@ -55,7 +57,7 @@ def createBill(self):
         
         querys.insertInfoInvoiceTable(cursor,idProduct, quantity,totalPrice,totalBill,variables.invoice_date,variables.invoice_num)
         
-        CNXNSQL.conexion.commit()
+        conexion.commit()
 
 
 # 2. Render template HTML with data
@@ -80,16 +82,25 @@ def createBill(self):
         else:
             print(f"Factura generada {filename}")
 
-    #reset de los campos
-    self.ui.input_idProdBill.setText('')
-    self.ui.input_priceBill.setText('')
-    self.ui.input_quantityBill.setText('')
 
-    #Para empezar a crear una nueva factura
-    self.ui.tableBill.setRowCount(0)
-    utils.newinvoicenumber(self)
-    self.ui.label_valTotRES.setText("")
-    utils.cleanStockTable(self)
+    utils.cleanBillTable(self)
+    utils.newBill(self)
     results = querys.getAllProducts(cursor)
-    
     utils.stockTable(self, results)
+
+def updateStockAfterCreateBill(self):
+    utils.billTable(self)
+    
+    rows = self.ui.tableBill.rowCount()
+
+    idProdArray = []
+    priceArray = []
+    for i in range(rows):
+        itemIdProd = self.ui.tableBill.item(i, 0)
+        itemPriceArray = self.ui.tableBill.item(i, 2)
+
+        idProdArray.append(itemIdProd.text())
+        priceArray.append(itemPriceArray.text())
+
+
+    #print(idProdArray, priceArray, "iojfirwufnurfn")
