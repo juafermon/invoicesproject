@@ -32,7 +32,7 @@ def productCamp (self, IdProd):
         if not IdProd: 
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Warning)
-            msg.setText("El campo Producto no puede estar vacío.")
+            msg.setText("El campo Id Producto no puede estar vacío.")
             msg.setWindowTitle("Advertencia")
             msg.exec_()
         
