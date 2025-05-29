@@ -35,3 +35,8 @@ def updateInfoProductTable(cursor,stock, price, product_id, product_name):
     cursor.execute(
         "UPDATE products SET stock = %s, price = %s, product_name = %s WHERE product_id = %s", (stock, price, product_name, product_id)
     )
+
+def updateStockProducts(cursor, stock, product_id):
+    cursor.execute(
+        "UPDATE products SET stock = %s WHERE product_id = %s", (stock, product_id)
+    )
