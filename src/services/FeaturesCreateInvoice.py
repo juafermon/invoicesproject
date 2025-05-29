@@ -88,19 +88,31 @@ def createBill(self):
     results = querys.getAllProducts(cursor)
     utils.stockTable(self, results)
 
-def updateStockAfterCreateBill(self):
-    utils.billTable(self)
-    
-    rows = self.ui.tableBill.rowCount()
 
+
+def updateStockAfterCreateBill(self):    
+    rows = self.ui.tableBill.rowCount()
     idProdArray = []
-    priceArray = []
+    selledQuantityArray = []
     for i in range(rows):
         itemIdProd = self.ui.tableBill.item(i, 0)
-        itemPriceArray = self.ui.tableBill.item(i, 2)
+        itemQuantityArray = self.ui.tableBill.item(i, 3)
 
         idProdArray.append(itemIdProd.text())
-        priceArray.append(itemPriceArray.text())
+        selledQuantityArray.append(itemQuantityArray.text())
 
+    #for to get actual stock on products
+    actualStockArray = []
+    for i in range (len(idProdArray)):
+        result = querys.getProductByID(cursor, idProdArray[i])
+        actualStockArray.append(result[0][3])
+    
+    #FOR to get substract the stock on products
+    substratedQuantityArray = []
+    for i in range (len(idProdArray)):
+        Substract = int(actualStockArray[i])-int(selledQuantityArray[i])
+        substratedQuantityArray.append(Substract)
 
-    #print(idProdArray, priceArray, "iojfirwufnurfn")
+    #FOR to update stock by product id in products Table
+    for i in range(len(substratedQuantityArray)):
+        querys.updateStockProducts(cursor, substratedQuantityArray[i], idProdArray[i])

@@ -55,6 +55,7 @@ def billTable(self):
     arrayValues.append(variables.quantity)
     arrayValues.append(Subtotal)
     actualrows = self.ui.tableBill.rowCount()
+    
     self.ui.tableBill.insertRow(actualrows)
     # FOR loop to add values o the array arrayValues to the bill table 
     for i, value in enumerate (arrayValues):            
