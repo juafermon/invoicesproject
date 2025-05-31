@@ -2,6 +2,7 @@ from src.database import CNXNSQL, querys
 from src.core import variables
 from src.services import FeaturesCreateInvoice
 from PyQt5.QtWidgets import QTableWidgetItem
+from PyQt5.QtWidgets import QMessageBox
 
 cursor = CNXNSQL.conexion.cursor()
 
@@ -56,9 +57,29 @@ def billTable(self):
     arrayValues.append(Subtotal)
     actualrows = self.ui.tableBill.rowCount()
     
-    self.ui.tableBill.insertRow(actualrows)
-    # FOR loop to add values o the array arrayValues to the bill table 
-    for i, value in enumerate (arrayValues):            
-        item = QTableWidgetItem(value)
-        self.ui.tableBill.setItem(actualrows, i, item)
-    FeaturesCreateInvoice.operTable(self)
+    actualStock1 = querys.getProductByID(cursor, variables.idProd)
+
+    diff = actualStock1[0][3]  - int(variables.quantity)
+
+    if diff<=0:
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText(f"producto {variables.idProd} no disponible")
+        msg.setWindowTitle("Advertencia de Valor")
+        msg.exec_()
+
+    else:
+        self.ui.tableBill.insertRow(actualrows)  
+        # FOR loop to add values o the array arrayValues to the bill table 
+        for i, value in enumerate (arrayValues):          
+            item = QTableWidgetItem(value)
+            self.ui.tableBill.setItem(actualrows, i, item)
+  
+        FeaturesCreateInvoice.operTable(self)
+
+# def messageError(self, mensaje):
+#     msg = QMessageBox()
+#     msg.setIcon(QMessageBox.Warning)
+#     msg.setText(f"producto {mensaje} no disponible")
+#     msg.setWindowTitle("Advertencia de Valor")
+#     msg.exec_()

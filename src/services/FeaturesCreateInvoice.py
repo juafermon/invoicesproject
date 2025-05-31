@@ -3,6 +3,7 @@ from xhtml2pdf import pisa
 from src.database import querys
 from src.database.CNXNSQL import conexion
 from src.core import variables, utils
+from PyQt5.QtWidgets import QMessageBox
 import os
 
 cursor = conexion.cursor()
@@ -112,7 +113,17 @@ def updateStockAfterCreateBill(self):
     for i in range (len(idProdArray)):
         Substract = int(actualStockArray[i])-int(selledQuantityArray[i])
         substratedQuantityArray.append(Substract)
+    
+    print (substratedQuantityArray)
 
     #FOR to update stock by product id in products Table
-    for i in range(len(substratedQuantityArray)):
-        querys.updateStockProducts(cursor, substratedQuantityArray[i], idProdArray[i])
+    for actual in range(len(substratedQuantityArray)):
+        if substratedQuantityArray[actual] <= 0:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText(f"producto {idProdArray[actual]} no disponible")
+            msg.setWindowTitle("Advertencia de Valor")
+            msg.exec_()
+        else:
+            for i in range(len(substratedQuantityArray)):
+                querys.updateStockProducts(cursor, substratedQuantityArray[i], idProdArray[i])
