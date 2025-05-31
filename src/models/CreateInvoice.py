@@ -25,7 +25,7 @@ def deleteProducts (self):
 
 def createPDF(self):
     setters.update_inv_date(datetime.now().date())
-    FeaturesCreateInvoice.updateStockAfterCreateBill(self)
+    #FeaturesCreateInvoice.updateStockAfterCreateBill(self)
     FeaturesCreateInvoice.createBill(self)
     
     utils.newBill(self)
