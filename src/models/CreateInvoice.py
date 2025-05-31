@@ -14,7 +14,7 @@ def getItemsAddtoTable (self):
     ValidationsCreateInv.idProductCamp(self, variables.idProd)
     self.ui.input_priceBill.setText(str(variables.price))
 
-    if(variables.quantity != '' and variables.price != '' and variables.nameProd != ''):
+    if(variables.quantity != '' and variables.nameProd != ''):
         #Add Items to invoice table
         utils.billTable(self)
 

@@ -60,7 +60,7 @@ def billTable(self):
     actualStock1 = querys.getProductByID(cursor, variables.idProd)
 
     diff = actualStock1[0][3]  - int(variables.quantity)
-
+    
     if diff<=0:
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)
@@ -77,9 +77,10 @@ def billTable(self):
   
         FeaturesCreateInvoice.operTable(self)
 
-# def messageError(self, mensaje):
-#     msg = QMessageBox()
-#     msg.setIcon(QMessageBox.Warning)
-#     msg.setText(f"producto {mensaje} no disponible")
-#     msg.setWindowTitle("Advertencia de Valor")
-#     msg.exec_()
+def messageError(self, mensaje):
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Warning)
+    aux = f"Producto {mensaje}  no está disponible"
+    msg.setText(aux)
+    msg.setWindowTitle("Advertencia de Valor")
+    msg.exec_()
