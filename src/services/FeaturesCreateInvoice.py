@@ -56,8 +56,12 @@ def createBill(self):
    
         totalBill = sum(float(item["precio_total"]) for item in invoice_items if item["precio_total"])
         
-        querys.insertInfoInvoiceTable(cursor,idProduct, quantity,totalPrice,totalBill,variables.invoice_date,variables.invoice_num)
-        
+        #FALTA CORREGIR LA UBICACION EN LA PARTE GRAFICA DE LAS COLUMNAS EN LA PARTE GRAFICA
+        result = querys.getProductByID(cursor, idProduct)
+        diff = result[0][3]-int(quantity)
+        querys.updateStockProducts(cursor, diff, idProduct) #Update stock in products table
+        querys.insertInfoInvoiceTable(cursor,idProduct, quantity,totalPrice,totalBill,variables.invoice_date,variables.invoice_num)   
+
         conexion.commit()
 
 
@@ -88,42 +92,3 @@ def createBill(self):
     utils.newBill(self)
     results = querys.getAllProducts(cursor)
     utils.stockTable(self, results)
-
-
-
-def updateStockAfterCreateBill(self):    
-    rows = self.ui.tableBill.rowCount()
-    idProdArray = []
-    selledQuantityArray = []
-    for i in range(rows):
-        itemIdProd = self.ui.tableBill.item(i, 0)
-        itemQuantityArray = self.ui.tableBill.item(i, 3)
-
-        idProdArray.append(itemIdProd.text())
-        selledQuantityArray.append(itemQuantityArray.text())
-
-    #for to get actual stock on products
-    actualStockArray = []
-    for i in range (len(idProdArray)):
-        result = querys.getProductByID(cursor, idProdArray[i])
-        actualStockArray.append(result[0][3])
-    
-    #FOR to get substract the stock on products
-    substratedQuantityArray = []
-    for i in range (len(idProdArray)):
-        Substract = int(actualStockArray[i])-int(selledQuantityArray[i])
-        substratedQuantityArray.append(Substract)
-    
-    print (substratedQuantityArray)
-
-    #FOR to update stock by product id in products Table
-    for actual in range(len(substratedQuantityArray)):
-        if substratedQuantityArray[actual] <= 0:
-            msg = QMessageBox()
-            msg.setIcon(QMessageBox.Warning)
-            msg.setText(f"producto {idProdArray[actual]} no disponible")
-            msg.setWindowTitle("Advertencia de Valor")
-            msg.exec_()
-        else:
-            for i in range(len(substratedQuantityArray)):
-                querys.updateStockProducts(cursor, substratedQuantityArray[i], idProdArray[i])

@@ -4,90 +4,79 @@ from src.database import CNXNSQL, querys
 
 #Validations of fields to get products on Bill 
 def idProductCamp(self, idProd):
+    # 1. Validación de idProd
+    if not idProd:
+        #revisar como agregar una bandera para que no se activen dos cuadros si no se ingresa producto y no se ingresa cantidad
+        # me imagino un 
+        # if not idprod:
+          #flag
+        # else:
+          #resto de condiciones
+          #productcamp y campquantity
+        productCamp(self)
+        return
+    
     results = querys.getProductByID(CNXNSQL.cursor, idProd)
 
-    setters.update_nameProd(results[0][1])
-    setters.update_price(int(results[0][2]))
-
-    if not idProd :
-        productCamp(self, idProd)
-    
-    elif variables.nameProd == '' :        
+    # 2. Manejo claro de la ausencia de resultados
+    if not results:
         msg = QtWidgets.QMessageBox()
         msg.setIcon(QtWidgets.QMessageBox.Warning)
-        msg.setText("El producto no existe, intente de nuevo")  
+        msg.setText("El producto no existe, intente de nuevo")
         msg.setWindowTitle("Advertencia")
         msg.exec_()
-    elif not variables.quantity:
-        campQuantity(self, variables.quantity)     
-    elif  not variables.price:
-        campPrice(self, variables.price)     
-    else:  
-        return variables.nameProd
+        return # Salir si el producto no existe
+
+    # Con este try se asegura que results tenga al menos 3 elementos antes de acceder al array.
+    try:
+        _, name_prod, price_str = results[0][:3] # Toma los primeros 3 elementos
+    except IndexError:
+        return
+
+    #Actualizacion de variables globales
+    setters.update_nameProd(name_prod)
+    setters.update_price(int(price_str))
+    return variables.nameProd
     
     
 #Field validation idproduct - pop up box 
-def productCamp (self, IdProd):
-            
-        if not IdProd: 
+def productCamp (self):
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Warning)
-            msg.setText("El campo Id Producto no puede estar vacío.")
+            msg.setText(f"El campo Id Producto no puede estar vacío.")
             msg.setWindowTitle("Advertencia")
             msg.exec_()
         
 #  Field validation for quantity - pop up box 
 def campQuantity (self,Quantity_str):
+    if not Quantity_str:
+        msg = QtWidgets.QMessageBox()
+        msg.setIcon(QtWidgets.QMessageBox.Warning)
+        msg.setText("El campo Cantidad no puede estar vacío.")
+        msg.setWindowTitle("Advertencia")
+        msg.exec_()
+        return
 
-        if not Quantity_str:
+    try:
+        Quantity = int(Quantity_str)
+        if Quantity <= 0:
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Warning)
-            msg.setText("El campo Cantidad no puede estar vacío.")
+            msg.setText("El campo Cantidad debe ser positivo.")
             msg.setWindowTitle("Advertencia")
-            msg.exec_()  
+            msg.exec_()
             return
+        #variable global asignada
+        variables.quantity = Quantity
+        return # La validación fue exitosa
 
-        try:
-            Quantity = int(Quantity_str)
-            if Quantity <= 0:
-                msg = QtWidgets.QMessageBox()
-                msg.setIcon(QtWidgets.QMessageBox.Warning)
-                msg.setText("El campo Cantidad debe ser positivo.")
-                msg.setWindowTitle("Advertencia")
-                msg.exec_()  
-                return
-        except ValueError:
-            msg = QtWidgets.QMessageBox()
-            msg.setIcon(QtWidgets.QMessageBox.Warning)
-            msg.setText("Ingrese un valor valido en cantidad")
-            msg.setWindowTitle("Advertencia")
-            msg.exec_()  
-            return
-        
-
-# --- Field validation for Price ---
-def campPrice(self, Price_str):
-
-        if not Price_str:
-            msg = QtWidgets.QMessageBox()
-            msg.setIcon(QtWidgets.QMessageBox.Warning)
-            msg.setText("Campo precio no puede estar vacio")
-            msg.setWindowTitle("Advertencia")
-            msg.exec_()  
-            return
-
-        try:
-            if int(Price_str) <= 0:
-                msg = QtWidgets.QMessageBox()
-                msg.setIcon(QtWidgets.QMessageBox.Warning)
-                msg.setText("Campo precio debe ser positivo")
-                msg.setWindowTitle("Advertencia")
-                msg.exec_() 
-                returnPrice = float(Price_str) # Intentamos convertir a float para permitir decimales
-        except ValueError:
-            msg = QtWidgets.QMessageBox()
-            msg.setIcon(QtWidgets.QMessageBox.Warning)
-            msg.setText("Campo precio invalido")
-            msg.setWindowTitle("Advertencia")
-            msg.exec_() 
-            return
+    except ValueError:
+        # Field validation for quantity - pop up box
+        msg = QtWidgets.QMessageBox()
+        msg.setIcon(QtWidgets.QMessageBox.Warning)
+        msg.setText("Ingrese solo números en el campo de cantidad.")
+        msg.setWindowTitle("Advertencia")
+        msg.exec_()
+        #variable global asignada
+        variables.quantity = ''
+        return

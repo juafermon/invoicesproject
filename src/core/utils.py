@@ -1,5 +1,6 @@
 from src.database import CNXNSQL, querys
 from src.core import variables
+from src.services import ValidationsCreateInv
 from src.services import FeaturesCreateInvoice
 from PyQt5.QtWidgets import QTableWidgetItem
 from PyQt5.QtWidgets import QMessageBox
@@ -44,7 +45,7 @@ def stockTable(self, results):
 
 #Function that ADD the items in the invoice Table 
 def billTable(self):
-    Subtotal = str(int(variables.quantity)*int((variables.price)))
+    Subtotal= str(int(variables.quantity)*int((variables.price)))
     arrayValues = []
     #arrayValues.append(self.ui.input_CCBill.text())
     #arrayValues.append(self.ui.input_nameCLientBill.text())
@@ -52,34 +53,29 @@ def billTable(self):
     arrayValues.append(variables.idProd)
     arrayValues.append(variables.nameProd)
     #arrayValues.append(querys.productname(cursor, IdProd))
+    arrayValues.append(str(variables.quantity))
     arrayValues.append(str(variables.price))
-    arrayValues.append(variables.quantity)
     arrayValues.append(Subtotal)
     actualrows = self.ui.tableBill.rowCount()
     
-    actualStock1 = querys.getProductByID(cursor, variables.idProd)
+    actualStock = querys.getProductByID(cursor, variables.idProd)
 
-    diff = actualStock1[0][3]  - int(variables.quantity)
+    if not actualStock:
+        return
+    else:
+        diff = actualStock[0][3]  - int(variables.quantity)
 
-    if diff<=0:
+    if diff<0:
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)
-        msg.setText(f"producto {variables.idProd} no disponible")
+        msg.setText("Existencias insuficientes")
         msg.setWindowTitle("Advertencia de Valor")
         msg.exec_()
-
     else:
         self.ui.tableBill.insertRow(actualrows)  
         # FOR loop to add values o the array arrayValues to the bill table 
         for i, value in enumerate (arrayValues):          
             item = QTableWidgetItem(value)
             self.ui.tableBill.setItem(actualrows, i, item)
-  
-        FeaturesCreateInvoice.operTable(self)
 
-# def messageError(self, mensaje):
-#     msg = QMessageBox()
-#     msg.setIcon(QMessageBox.Warning)
-#     msg.setText(f"producto {mensaje} no disponible")
-#     msg.setWindowTitle("Advertencia de Valor")
-#     msg.exec_()
+        FeaturesCreateInvoice.operTable(self)
