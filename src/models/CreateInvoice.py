@@ -15,7 +15,7 @@ def getItemsAddtoTable (self):
     # estaba haciendo no permite que se valide la entrada de cantidad si no hay idprod, por eso sale el error
     # se puede agregar una bandera para ahi mismo en ValidationsCreateInv 
     ValidationsCreateInv.idProductCamp(self, variables.idProd)
-    ValidationsCreateInv.campQuantity(self, self.ui.input_quantityBill.text())
+    #ValidationsCreateInv.campQuantity(self, self.ui.input_quantityBill.text())
     self.ui.input_priceBill.setText('') #para borrar el precio, queda pendiente modificar la parte grafica para que no se vea el precio
     
     #SE AGREGAN LAS TRES CONDICIONES, NO ENCONTRE OTRA FORMA DE HACERLO

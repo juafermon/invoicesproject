@@ -59,16 +59,13 @@ def billTable(self):
     actualrows = self.ui.tableBill.rowCount()
     
     actualStock = querys.getProductByID(cursor, variables.idProd)
-
-    if not actualStock:
-        return
-    else:
-        diff = actualStock[0][3]  - int(variables.quantity)
+    
+    diff = actualStock[0][3]  - int(variables.quantity)
 
     if diff<0:
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Warning)
-        msg.setText("Existencias insuficientes")
+        msg.setText(f"Existencias insuficientes, la cantidad existente para el producto {variables.idProd} es de {actualStock[0][3]} unidades.")
         msg.setWindowTitle("Advertencia de Valor")
         msg.exec_()
     else:

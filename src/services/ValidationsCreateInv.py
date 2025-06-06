@@ -6,37 +6,28 @@ from src.database import CNXNSQL, querys
 def idProductCamp(self, idProd):
     # 1. Validación de idProd
     if not idProd:
-        #revisar como agregar una bandera para que no se activen dos cuadros si no se ingresa producto y no se ingresa cantidad
-        # me imagino un 
-        # if not idprod:
-          #flag
-        # else:
-          #resto de condiciones
-          #productcamp y campquantity
         productCamp(self)
         return
-    
-    results = querys.getProductByID(CNXNSQL.cursor, idProd)
+    else:
+        results = querys.getProductByID(CNXNSQL.cursor, idProd)
 
-    # 2. Manejo claro de la ausencia de resultados
-    if not results:
-        msg = QtWidgets.QMessageBox()
-        msg.setIcon(QtWidgets.QMessageBox.Warning)
-        msg.setText("El producto no existe, intente de nuevo")
-        msg.setWindowTitle("Advertencia")
-        msg.exec_()
-        return # Salir si el producto no existe
+        # Manejo claro de la ausencia de resultados
+        if not results:
+            msg = QtWidgets.QMessageBox()
+            msg.setIcon(QtWidgets.QMessageBox.Warning)
+            msg.setText(f"El producto {idProd} no existe, intente de nuevo")
+            msg.setWindowTitle("Advertencia")
+            msg.exec_()
+            return # Salir si el producto no existe
+        
+        else:
+            campQuantity(self, variables.quantity)
 
-    # Con este try se asegura que results tenga al menos 3 elementos antes de acceder al array.
-    try:
-        _, name_prod, price_str = results[0][:3] # Toma los primeros 3 elementos
-    except IndexError:
-        return
-
-    #Actualizacion de variables globales
-    setters.update_nameProd(name_prod)
-    setters.update_price(int(price_str))
-    return variables.nameProd
+        # Con este try se asegura que results tenga al menos 3 elementos antes de acceder al array.
+        #Actualizacion de variables globales
+        setters.update_nameProd(results[0][1])
+        setters.update_price(int(results[0][2]))
+        return variables.nameProd
     
     
 #Field validation idproduct - pop up box 
