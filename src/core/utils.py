@@ -1,5 +1,5 @@
 from src.database import CNXNSQL, querys
-from src.core import variables
+from src.core import variables, setters
 from src.services import ValidationsCreateInv
 from src.services import FeaturesCreateInvoice
 from PyQt5.QtWidgets import QTableWidgetItem
@@ -69,6 +69,8 @@ def billTable(self):
         msg.setWindowTitle("Advertencia de Valor")
         msg.exec_()
     else:
+        setters.update_quantity('')
+        setters.update_nameProd('')
         self.ui.tableBill.insertRow(actualrows)  
         # FOR loop to add values o the array arrayValues to the bill table 
         for i, value in enumerate (arrayValues):          
