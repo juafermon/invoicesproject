@@ -13,7 +13,7 @@ def invoicenumber(cursor):
 
 def getAllProducts(cursor):
     cursor.execute(
-        """SELECT   product_id, product_name, price, stock FROM public.products"""
+        """SELECT   product_id, product_name, price, stock FROM public.products ORDER BY product_id ASC"""
     )
     result = cursor.fetchall()
     return result
