@@ -18,16 +18,17 @@ def idProductCamp(self, idProd):
             msg.setText(f"El producto {idProd} no existe, intente de nuevo")
             msg.setWindowTitle("Advertencia")
             msg.exec_()
-            return # Salir si el producto no existe
+            setters.update_quantity('')
+            setters.update_nameProd('')
         
         else:
             campQuantity(self, variables.quantity)
+            setters.update_nameProd(results[0][1])
+            setters.update_price(int(results[0][2]))
 
         # Con este try se asegura que results tenga al menos 3 elementos antes de acceder al array.
         #Actualizacion de variables globales
-        setters.update_nameProd(results[0][1])
-        setters.update_price(int(results[0][2]))
-        return variables.nameProd
+
     
     
 #Field validation idproduct - pop up box 
@@ -37,6 +38,9 @@ def productCamp (self):
             msg.setText(f"El campo Id Producto no puede estar vacío.")
             msg.setWindowTitle("Advertencia")
             msg.exec_()
+            setters.update_quantity('')
+            setters.update_nameProd('')
+
         
 #  Field validation for quantity - pop up box 
 def campQuantity (self,Quantity_str):
@@ -56,10 +60,9 @@ def campQuantity (self,Quantity_str):
             msg.setText("El campo Cantidad debe ser positivo.")
             msg.setWindowTitle("Advertencia")
             msg.exec_()
+            setters.update_quantity('')
             return
         #variable global asignada
-        variables.quantity = Quantity
-        return # La validación fue exitosa
 
     except ValueError:
         # Field validation for quantity - pop up box
@@ -69,5 +72,5 @@ def campQuantity (self,Quantity_str):
         msg.setWindowTitle("Advertencia")
         msg.exec_()
         #variable global asignada
-        variables.quantity = ''
+        setters.update_quantity('')
         return

@@ -21,8 +21,7 @@ def getItemsAddtoTable (self):
     #SE AGREGAN LAS TRES CONDICIONES, NO ENCONTRE OTRA FORMA DE HACERLO
     if(variables.quantity != '' 
        and variables.price != '' 
-       and variables.nameProd != '' 
-       and int(variables.quantity)>0):
+       and variables.nameProd != ''):
         self.ui.input_priceBill.setText(str(variables.price)) #Que no se setee el precio antes de entrar al IF
         #Add Items to invoice table
         utils.billTable(self)
