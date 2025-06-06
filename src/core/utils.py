@@ -32,7 +32,6 @@ def cleanFieldsInsertItem(self):
 def cleanBillTable(self):
     #Fields reset 
     self.ui.input_idProdBill.setText('')
-    self.ui.input_priceBill.setText('')
     self.ui.input_quantityBill.setText('')
 
 

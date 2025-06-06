@@ -159,7 +159,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>510</x>
-        <y>0</y>
+        <y>50</y>
         <width>111</width>
         <height>21</height>
        </rect>
@@ -172,13 +172,13 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>510</x>
-        <y>50</y>
+        <y>100</y>
         <width>111</width>
         <height>21</height>
        </rect>
       </property>
       <property name="text">
-       <string>cantidad</string>
+       <string>Cantidad</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_emailBill">
@@ -223,7 +223,7 @@ p, li { white-space: pre-wrap; }
       </column>
       <column>
        <property name="text">
-        <string>NombreProd</string>
+        <string>Nombre de Producto</string>
        </property>
       </column>
       <column>
@@ -302,7 +302,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>510</x>
-        <y>20</y>
+        <y>70</y>
         <width>291</width>
         <height>27</height>
        </rect>
@@ -312,7 +312,7 @@ p, li { white-space: pre-wrap; }
       <property name="geometry">
        <rect>
         <x>510</x>
-        <y>70</y>
+        <y>120</y>
         <width>101</width>
         <height>27</height>
        </rect>
@@ -321,8 +321,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="label_numInvoice">
       <property name="geometry">
        <rect>
-        <x>830</x>
-        <y>20</y>
+        <x>510</x>
+        <y>10</y>
         <width>141</width>
         <height>31</height>
        </rect>
@@ -334,8 +334,8 @@ p, li { white-space: pre-wrap; }
      <widget class="QLabel" name="label_actualinvnum">
       <property name="geometry">
        <rect>
-        <x>980</x>
-        <y>20</y>
+        <x>660</x>
+        <y>10</y>
         <width>141</width>
         <height>31</height>
        </rect>
@@ -357,31 +357,10 @@ p, li { white-space: pre-wrap; }
        <string>Inventario</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_valTotRES">
-      <property name="geometry">
-       <rect>
-        <x>823</x>
-        <y>460</y>
-        <width>96</width>
-        <height>35</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Ubuntu Mono</family>
-        <pointsize>16</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
      <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
-        <x>630</x>
+        <x>650</x>
         <y>490</y>
         <width>271</width>
         <height>32</height>
@@ -412,8 +391,26 @@ p, li { white-space: pre-wrap; }
          <property name="text">
           <string>$</string>
          </property>
+         <property name="textFormat">
+          <enum>Qt::AutoText</enum>
+         </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_valTotRES">
+         <property name="font">
+          <font>
+           <family>Ubuntu Mono</family>
+           <pointsize>16</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </item>
@@ -481,12 +478,12 @@ p, li { white-space: pre-wrap; }
       </column>
       <column>
        <property name="text">
-        <string>Cantidad</string>
+        <string>Precio</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Precio</string>
+        <string>Cantidad</string>
        </property>
       </column>
      </widget>
@@ -577,7 +574,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
       <property name="text">
-       <string>Agregar</string>
+       <string>Actualizar</string>
       </property>
      </widget>
      <widget class="QWidget" name="layoutWidget">
