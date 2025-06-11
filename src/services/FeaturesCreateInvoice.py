@@ -29,7 +29,7 @@ def operTable (self):
     self.ui.label_valTotRES.setText(str(f'{sum(convertedarray):,.2f}').replace(',', 'X').replace('.', ',').replace('X', '.'))
 
 def createBill(self):
-    #cursor = CNXNSQL.conexion.cursor()
+    totalBill = 0
     invoice_info = {
         "numero_factura": variables.invoice_num,
         "fecha_factura": variables.invoice_date.strftime("%Y %m %d"),

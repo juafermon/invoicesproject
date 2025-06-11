@@ -4,6 +4,8 @@ from src.database import CNXNSQL, querys
 
 #Validations of fields to get products on Bill 
 def idProductCamp(self, idProd):
+
+    
     # 1. Validación de idProd
     if not idProd:
         productCamp(self)
@@ -20,17 +22,11 @@ def idProductCamp(self, idProd):
             msg.exec_()
             setters.update_quantity('')
             setters.update_nameProd('')
-        
         else:
             campQuantity(self, variables.quantity)
             setters.update_nameProd(results[0][1])
             setters.update_price(int(results[0][2]))
-
-        # Con este try se asegura que results tenga al menos 3 elementos antes de acceder al array.
-        #Actualizacion de variables globales
-
-    
-    
+        
 #Field validation idproduct - pop up box 
 def productCamp (self):
             msg = QtWidgets.QMessageBox()
@@ -74,3 +70,11 @@ def campQuantity (self,Quantity_str):
         #variable global asignada
         setters.update_quantity('')
         return
+    
+#Validation exist product in bill table - pop up box 
+def existingItemBillTable (self, prod):
+            msg = QtWidgets.QMessageBox()
+            msg.setIcon(QtWidgets.QMessageBox.Warning)
+            msg.setText(f"El producto {prod} ya fue ingresado.")
+            msg.setWindowTitle("Advertencia")
+            msg.exec_()

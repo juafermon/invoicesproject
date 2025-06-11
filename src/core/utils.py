@@ -86,7 +86,15 @@ def billTable(self):
         msg.setText(f"Existencias insuficientes, la cantidad existente para el producto {variables.idProd} es de {actualStock[0][3]} unidades.")
         msg.setWindowTitle("Advertencia de Valor")
         msg.exec_()
+                
     else:
+
+        for i in range (actualrows):
+            item = self.ui.tableBill.item(i,0)
+            if item.text() == variables.idProd:
+                ValidationsCreateInv.existingItemBillTable(self, variables.idProd)
+                return
+
         setters.update_quantity('')
         setters.update_nameProd('')
         self.ui.tableBill.insertRow(actualrows)  
