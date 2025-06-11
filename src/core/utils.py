@@ -1,5 +1,5 @@
 from src.database import CNXNSQL, querys
-from src.core import variables, setters
+from src.core import variables, setters, utils
 from src.services import ValidationsCreateInv
 from src.services import FeaturesCreateInvoice
 from PyQt5.QtWidgets import QTableWidgetItem
@@ -9,8 +9,14 @@ cursor = CNXNSQL.conexion.cursor()
 
 def newinvoicenumber(self):
     invnum = querys.invoicenumber(CNXNSQL.cursor)
-    newinvnum = str(invnum + 1)
-    self.ui.label_actualinvnum.setText(newinvnum)
+    
+    #Control when there are not exits any invoice
+    if not invnum:
+        newinvnum = 1
+    else: 
+        newinvnum = str(invnum + 1)
+    
+    self.ui.label_actualinvnum.setText(str(newinvnum))
 
 #Function to create a new invoice
 def newBill(self):
@@ -53,8 +59,8 @@ def billTable(self):
     arrayValues.append(variables.nameProd)
     #arrayValues.append(querys.productname(cursor, IdProd))
     arrayValues.append(str(variables.quantity))
-    arrayValues.append(str(variables.price))
-    arrayValues.append(Subtotal)
+    arrayValues.append('$ ' + utils.formatNumber(self, variables.price))
+    arrayValues.append('$ ' + utils.formatNumber(self, int(Subtotal)))
     actualrows = self.ui.tableBill.rowCount()
     
     actualStock = querys.getProductByID(cursor, variables.idProd)
@@ -77,3 +83,11 @@ def billTable(self):
             self.ui.tableBill.setItem(actualrows, i, item)
 
         FeaturesCreateInvoice.operTable(self)
+
+def formatNumber(self, number):
+    newNumber = f'{number:,.2f}'.replace(',', 'X').replace('.', ',').replace('X', '.')
+    return newNumber
+
+def eraseFormatNumber(self, number):
+    newNumberWithoutFormat = number.replace('$ ', '').replace('.', '').replace(',00','')
+    return newNumberWithoutFormat
