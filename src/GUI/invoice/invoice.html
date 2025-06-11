@@ -12,7 +12,7 @@
     </div>
 
     <div class="invoice-header">
-        <h1>Factura</h1>
+        <br><h1>Factura</h1>
         <p>Nombre Empresa<br>Dirección<br>Telefono</p>
     </div>
 
@@ -36,8 +36,8 @@
             <tr>
                 <td>{{ item.producto }}</td>
                 <td>{{ item.cantidad }}</td>
-                <td>${{ item.precio_unitario }}</td>
-                <td>${{ item.precio_total }}</td>
+                <td>{{ item.precio_unitario }}</td>
+                <td>{{ item.precio_total }}</td>
             </tr>
             {% endfor %}
         </tbody>
