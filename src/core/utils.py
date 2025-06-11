@@ -42,11 +42,24 @@ def cleanBillTable(self):
 
 
 def stockTable(self, results):
-    for row, row_data in enumerate(results):
+    #Modify values in results variable to add $ symbol and separator (.)
+    temporal = []
+    for i,element in enumerate(results):  
+        fila = (
+            str(results[i][0]), 
+            str(results[i][1]), 
+            str('$ ' + utils.formatNumber(self, int(element[2]))), 
+            str(results[i][3])
+            )
+        temporal.append(fila)
+    results2 = tuple(temporal)
+    
+    for row, row_data in enumerate(results2): 
         self.ui.table_searchItemStock.insertRow(row)
         for col, value in enumerate(row_data):
             item = QTableWidgetItem(str(value))
             self.ui.table_searchItemStock.setItem(row, col, item)
+            
 
 #Function that ADD the items in the invoice Table 
 def billTable(self):
