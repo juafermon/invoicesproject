@@ -17,8 +17,7 @@ def operTable (self):
     #array subtotal
     for row in range(num_rows):
         item = self.ui.tableBill.item(row, col_SubTotal)
-        arraySubTotal.append(item.text())     
-
+        arraySubTotal.append(utils.eraseFormatNumber(self,item.text()))
     #SumSubtotal
     convertedarray= []
     for i in range(len(arraySubTotal)):
@@ -26,7 +25,7 @@ def operTable (self):
         convertedarray.append(totalItem)
 
     #Suma Total
-    self.ui.label_valTotRES.setText(str(sum(convertedarray)))
+    self.ui.label_valTotRES.setText(str(f'{sum(convertedarray):,.2f}').replace(',', 'X').replace('.', ',').replace('X', '.'))
 
 def createBill(self):
     #cursor = CNXNSQL.conexion.cursor()
@@ -53,14 +52,13 @@ def createBill(self):
             "precio_unitario": unitPrice,
             "precio_total": totalPrice,
         })
-   
-        totalBill = sum(float(item["precio_total"]) for item in invoice_items if item["precio_total"])
         
+        totalBill = sum(float(utils.eraseFormatNumber(self,item["precio_total"])) for item in invoice_items if item["precio_total"])
         #FALTA CORREGIR LA UBICACION EN LA PARTE GRAFICA DE LAS COLUMNAS EN LA PARTE GRAFICA
         result = querys.getProductByID(cursor, idProduct)
         diff = result[0][3]-int(quantity)
         querys.updateStockProducts(cursor, diff, idProduct) #Update stock in products table
-        querys.insertInfoInvoiceTable(cursor,idProduct, quantity,totalPrice,totalBill,variables.invoice_date,variables.invoice_num)   
+        querys.insertInfoInvoiceTable(cursor,idProduct, quantity,utils.eraseFormatNumber(self,totalPrice),totalBill,variables.invoice_date,variables.invoice_num)   
 
         conexion.commit()
 
@@ -73,9 +71,8 @@ def createBill(self):
     html = template.render(
         factura_info=invoice_info,
         items=invoice_items,
-        total_factura=totalBill
+        total_factura= utils.formatNumber(self,totalBill)
         )
-    
 
     # 3. Convertir el HTML a PDF usando xhtml2pdf
     filename = f"{variables.invoice_num}{variables.invoice_date.strftime("%Y %m %d").replace(" ","")}.pdf"
