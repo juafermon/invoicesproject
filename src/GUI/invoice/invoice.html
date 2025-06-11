@@ -3,37 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Factura</title>
-    <style>
-        body { font-family: Optima, sans-serif; background-color: rgb(186, 228, 226); margin: 20mm 15mm 15mm 15mm; /* Añadimos márgenes alrededor del cuerpo */}
-        .invoice-header { text-align: center; margin-bottom: 25px; font-weight: bold;}
-        .client-info { margin-bottom: 15px; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 2px solid black; padding: 8px; text-align: left; }
-        th { background-color: #d8c4e6; }
-        .total { text-align: right; margin-top: 20px; font-weight: bold; font-size: 25px;}
-
-        /* Estilos para el número de factura en la esquina superior izquierda */
-        .numero-factura-container {
-            position: absolute;
-            top: 15mm;        /* Ajusta según el margen superior del body */
-            left: 15mm;       /* Ajusta según el margen izquierdo del body */
-            font-size: 14px;
-            font-weight: bold;
-        }
-    </style>
-</head>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
 <body>
     <div class="numero-factura-container">
-        <strong>Número de Factura:</strong> {{ factura_info.numero_factura }}
+        <strong>Número de Factura:</strong> {{ factura_info.numero_factura }}<br>
+        <strong>Fecha:</strong> {{ factura_info.fecha_factura }}
     </div>
 
     <div class="invoice-header">
         <h1>Factura</h1>
-        <p>Nombre Empresa<br>Dirección</p>
+        <p>Nombre Empresa<br>Dirección<br>Telefono</p>
     </div>
 
     <div class="client-info">
-        <p><strong>Fecha:</strong> {{ factura_info.fecha_factura }}</p>
+        
         <p><strong>Cliente:</strong> {{ factura_info.nombre_cliente }}</p>
         <p><strong>Dirección:</strong> {{ factura_info.direccion_cliente }}</p>
     </div>
@@ -43,8 +27,8 @@
             <tr>
                 <th>Producto</th>
                 <th>Cantidad</th>
-                <th>Precio Unitario</th>
-                <th>Precio Total</th>
+                <th>Precio Unit.</th>
+                <th>Subtotal</th>
             </tr>
         </thead>
         <tbody>
@@ -52,8 +36,8 @@
             <tr>
                 <td>{{ item.producto }}</td>
                 <td>{{ item.cantidad }}</td>
-                <td>{{ item.precio_unitario }}</td>
-                <td>{{ item.precio_total }}</td>
+                <td>${{ item.precio_unitario }}</td>
+                <td>${{ item.precio_total }}</td>
             </tr>
             {% endfor %}
         </tbody>
