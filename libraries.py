@@ -1,6 +1,6 @@
 import subprocess
 
-librerias = ['pyqt5', 'jinja2 ', 'xhtml2pdf', 'psycopg2-binary']
+librerias = ['pyqt5', 'jinja2 ', 'Weasyprint', 'psycopg2-binary']
 
 for libreria in librerias:
     try:

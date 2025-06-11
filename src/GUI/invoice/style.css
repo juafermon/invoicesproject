@@ -1,0 +1,69 @@
+/* spacing */
+
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif, sans-serif;
+    background-color: rgb(251, 255, 255);
+    margin: 12mm 12mm 12mm 12mm;
+}
+
+h1{
+  position: relative;
+  top: 20px;
+}
+
+.invoice-header {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+.client-info {
+    margin-bottom: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed;
+}
+
+th,
+td {
+    
+    border: 3px solid rgb(0, 0, 0); 
+    padding: 4px;
+    background-color: rgb(255, 255, 255);
+    white-space: nowrap;
+}
+
+th {
+    background-color: #fffefe;
+    font-size: 14px;
+    padding: 1px;
+
+}
+thead th:nth-child(1) { width: 50%; }
+thead th:nth-child(2) { width: 15%; }
+thead th:nth-child(3) { width: 20%; }
+thead th:nth-child(4) { width: 15%; }
+
+td {
+    font-size: 13px; 
+    padding: 1px;
+}
+
+.total {
+    text-align: right;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.numero-factura-container {
+    position: absolute;
+    top: 15mm;
+    left: 15mm;
+    font-size: 14px;
+    font-weight: bold;
+}
