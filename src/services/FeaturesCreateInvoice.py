@@ -1,5 +1,6 @@
 from jinja2 import Environment, FileSystemLoader
-from xhtml2pdf import pisa
+#from xhtml2pdf import pisa
+from weasyprint import HTML, CSS 
 from src.database import querys
 from src.database.CNXNSQL import conexion
 from src.core import variables, utils
@@ -33,7 +34,8 @@ def createBill(self):
         "numero_factura": variables.invoice_num,
         "fecha_factura": variables.invoice_date.strftime("%Y %m %d"),
         "nombre_cliente": variables.nameClient,
-        "direccion_cliente": variables.email,
+        "correo_cliente": variables.email,
+        "identificacion_cliente": variables.cc,
     }
     
     invoice_items = []
@@ -53,8 +55,9 @@ def createBill(self):
             "precio_total": totalPrice,
         })
         
+
         totalBill = sum(float(utils.eraseFormatNumber(self,item["precio_total"])) for item in invoice_items if item["precio_total"])
-        #FALTA CORREGIR LA UBICACION EN LA PARTE GRAFICA DE LAS COLUMNAS EN LA PARTE GRAFICA
+
         result = querys.getProductByID(cursor, idProduct)
         diff = result[0][3]-int(quantity)
         querys.updateStockProducts(cursor, diff, idProduct) #Update stock in products table
@@ -63,10 +66,10 @@ def createBill(self):
         conexion.commit()
 
 
-# 2. Render template HTML with data
+#   Render template HTML with data
     current_dir = os.path.dirname(os.path.abspath(__file__))
     template_dir = os.path.join(current_dir, '..', 'GUI', 'invoice')
-    env = Environment(loader=FileSystemLoader(template_dir)) # Asume que la plantilla está en el mismo directorio
+    env = Environment(loader=FileSystemLoader(template_dir))
     template = env.get_template('invoice.html')
     html = template.render(
         factura_info=invoice_info,
@@ -74,15 +77,22 @@ def createBill(self):
         total_factura= utils.formatNumber(self,totalBill)
         )
 
-    # 3. Convertir el HTML a PDF usando xhtml2pdf
+    # Conversion with Weasyprint
     filename = f"{variables.invoice_num}{variables.invoice_date.strftime("%Y %m %d").replace(" ","")}.pdf"
     full_pdf_path = os.path.join("PDFs", filename)
-    with open(full_pdf_path, "wb") as pdf_file:
-        pisa_status = pisa.CreatePDF(html, dest=pdf_file)
-        if pisa_status.err:
-            print(f"Error al generar el PDF: {pisa_status.err}")
-        else:
-            print(f"Factura generada {filename}")
+    os.makedirs("PDFs", exist_ok=True) # FOLDER PDFs
+
+    html_doc = HTML(string=html, base_url=template_dir)
+
+    # upload of CSS
+    css_path = os.path.join(template_dir, 'style.css')
+    css_doc = CSS(filename=css_path) 
+
+    try:
+        html_doc.write_pdf(full_pdf_path, stylesheets=[css_doc])
+        print(f"Factura generada {filename}")
+    except Exception as e:
+        print(f"Error al generar el PDF: {e}")
 
 
     utils.cleanBillTable(self)
